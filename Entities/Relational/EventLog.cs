@@ -6,6 +6,13 @@ namespace EventSourcingCQRS.Entities.Relational
 {
     public class EventLog
     {
+        public EventLog(string id, string oldValue, string newValue, LogAction action)
+        {
+            ItemId = id;
+            OldValue = oldValue;
+            NewValue = newValue;
+            Action = action;
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

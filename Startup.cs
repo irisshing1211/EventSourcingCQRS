@@ -25,8 +25,11 @@ namespace EventSourcingCQRS
         {
             services.Configure<DbSettings>(Configuration.GetSection(nameof(DbSettings)));
             services.AddSingleton<IDbSettings>(sp => sp.GetRequiredService<IOptions<DbSettings>>().Value);
+
             services.AddDbContext<EventSourceContext>(options =>
-                                                       options.UseSqlServer(Configuration.GetSection("DbSettings").GetSection("RelationalConnString").Value));
+                                                          options.UseSqlServer(
+                                                              Configuration["DbSettings:RelationalConnString"]));
+
             services.AddSingleton<QueryContext>();
             services.AddControllersWithViews();
         }

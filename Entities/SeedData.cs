@@ -70,16 +70,19 @@ namespace EventSourcingCQRS.Entities
 
                 foreach (var log in eventList)
                 {
-                    var item = LogParser.ConvertStringToObject<CountItem>(log.NewValue);
+                  
 
                     switch (log.Action)
                     {
-                        case LogAction.Insert:
+                        case LogAction.Insert:  
+                            var item = LogParser.ConvertStringToObject<CountItem>(log.NewValue);
                             queryDb.CountItems.InsertOne(item);
 
                             break;
                         case LogAction.Update:
-                            queryDb.CountItems.ReplaceOne(a => a.Id == log.ItemId, item);
+                            var old = queryDb.CountItems.Find(a => a.Id == log.ItemId).FirstOrDefault();
+                            var update = LogParser.UpdateObjectByData(old, log.NewValue);
+                            queryDb.CountItems.ReplaceOne(a => a.Id == log.ItemId, update);
 
                             break;
                         case LogAction.Delete:

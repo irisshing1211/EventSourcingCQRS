@@ -41,17 +41,8 @@ namespace EventSourcingCQRS.Controllers
         public IActionResult UpdateCount(UpdateCountModel req)
         {
             var item = _queries.GetById(req.Id);
-
-            if (req.Value > 0)
-            {
-                var cmd = new AddCountCommand {Id = req.Id, NewValue = item.Count + 1};
-                _cmdHandler.AddCount(cmd);
-            }
-            else
-            {
-                var cmd = new ReduceCountCommand {Id = req.Id, NewValue = item.Count - 1};
-                _cmdHandler.ReduceCount(cmd);
-            }
+            var cmd = new UpdateCountCommand(item, req.Value > 0 ? 1 : -1);
+            _cmdHandler.UpdateCount(cmd);
 
             return RedirectToAction("Index");
         }

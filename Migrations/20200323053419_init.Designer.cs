@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventSourcingCQRS.Migrations
 {
     [DbContext(typeof(EventSourceContext))]
-    [Migration("20200322142759_init")]
+    [Migration("20200323053419_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,8 +31,8 @@ namespace EventSourcingCQRS.Migrations
                     b.Property<int>("Action")
                         .HasColumnType("int");
 
-                    b.Property<string>("ItemId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NewValue")
                         .HasColumnType("nvarchar(max)");

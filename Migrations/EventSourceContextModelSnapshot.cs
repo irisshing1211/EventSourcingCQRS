@@ -29,8 +29,8 @@ namespace EventSourcingCQRS.Migrations
                     b.Property<int>("Action")
                         .HasColumnType("int");
 
-                    b.Property<string>("ItemId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NewValue")
                         .HasColumnType("nvarchar(max)");

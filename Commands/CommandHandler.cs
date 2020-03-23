@@ -18,14 +18,17 @@ namespace EventSourcingCQRS.Commands
         public void AddCount(AddCountCommand cmd)
         {
             var log = cmd.LogObject;
-            _eventSourceCtx.EventLogs.Add(log);
-            _eventSourceCtx.SaveChanges();
-            new UpdateCountEvent(_queryCtx).Push(log);
+            AddLog(log);
         }
 
         public void ReduceCount(ReduceCountCommand cmd)
         {
             var log = cmd.LogObject;
+            AddLog(log);
+        }
+
+        private void AddLog(EventLog log)
+        {
             _eventSourceCtx.EventLogs.Add(log);
             _eventSourceCtx.SaveChanges();
             new UpdateCountEvent(_queryCtx).Push(log);

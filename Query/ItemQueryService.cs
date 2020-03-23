@@ -13,6 +13,6 @@ namespace EventSourcingCQRS.Query
         public ItemQueryService(QueryContext ctx) { _ctx = ctx; }
 
         public async Task<List<CountItem>> GetAll() => await _ctx.CountItems.Find(a => true).ToListAsync();
-        public CountItem GetById(string id) => _ctx.CountItems.Find(a => a.Id == id).FirstOrDefault();
+        public CountItem GetById(Guid id) => _ctx.CountItems.Find(a => a.Id == id).FirstOrDefault();
     }
 }

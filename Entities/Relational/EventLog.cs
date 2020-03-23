@@ -11,7 +11,7 @@ namespace EventSourcingCQRS.Entities.Relational
         {
             
         }
-        public EventLog(string id, string oldValue, string newValue, LogAction action)
+        public EventLog(Guid id, string oldValue, string newValue, LogAction action)
         {
             ItemId = id;
             OldValue = oldValue;
@@ -25,7 +25,7 @@ namespace EventSourcingCQRS.Entities.Relational
         public int Id { get; set; }
 
         public DateTime Time { get; set; }
-        public string ItemId { get; set; }
+        public Guid ItemId { get; set; }
         public string OldValue { get; set; }
         public string NewValue { get; set; }
         public LogAction Action { get; set; }

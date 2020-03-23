@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<EventSourcingCQRS.Entities.NoSql.CountItem>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -11,19 +12,26 @@
             <div class="col-2">Count</div>
             <div class="col-2"></div>
         </div>
-        <div class="row">
-            <div class="col-2">Item 1</div>
-            <div class="col-2">0</div>
-            <div class="col-3">
-                <button class="btn btnAdd btn-success" type="button">
-                    Add
-                </button>
-                <button class="btn btnReduce btn-info" type="button">
-                    Reduce
-                </button>
-            </div>
-        </div>
-    </div>
 
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-2">@item.ItemName</div>
+                <div class="col-2">@item.Count</div>
+                <div class="col-3">
+                    <form method="post" asp-controller="Home" asp-action="UpdateCount">
+                        <input type="hidden" name="Id" value="@item.Id"/>
+                        <button class="btn btnAdd btn-success" type="submit" value="@(item.Count + 1)" name="Value">
+                            + 1
+                        </button>
+                        <button class="btn btnReduce btn-info" type="submit" value="@(item.Count - 1)" name="Value">
+                            - 1
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        }
+    </div>
 </div>
 <script></script>

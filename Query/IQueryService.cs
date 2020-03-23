@@ -7,6 +7,6 @@ namespace EventSourcingCQRS.Query
     public interface IQueryService<T>
     {
         Task<List<T>> GetAll();
-        T GetById(string id);
+        T GetById(Guid id);
     }
 }

@@ -1,8 +1,37 @@
-﻿@{
+﻿@model List<EventSourcingCQRS.Entities.NoSql.CountItem>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="container">
+        <div class="row text-center font-weight-bold">
+            <div class="col-2">Item Name</div>
+            <div class="col-2">Count</div>
+            <div class="col-2"></div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-2">@item.ItemName</div>
+                <div class="col-2">@item.Count</div>
+                <div class="col-3">
+                    <form method="post" asp-controller="Home" asp-action="UpdateCount">
+                        <input type="hidden" name="Id" value="@item.Id"/>
+                        <button class="btn btnAdd btn-success" type="submit" value="@(item.Count + 1)" name="Value">
+                            + 1
+                        </button>
+                        <button class="btn btnReduce btn-info" type="submit" value="@(item.Count - 1)" name="Value">
+                            - 1
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        }
+    </div>
 </div>
+<script></script>

@@ -20,6 +20,7 @@ namespace EventSourcingCQRS.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IQueryService<CountItem> _queries;
         private readonly CommandHandler _cmdHandler;
+        private readonly EventSourceContext _eventContext;
 
         public HomeController(ILogger<HomeController> logger,
                               IQueryService<CountItem> queries,
@@ -29,13 +30,15 @@ namespace EventSourcingCQRS.Controllers
             _logger = logger;
             _queries = queries;
             _cmdHandler = new CommandHandler(eventCtx, queryCtx);
+            _eventContext = eventCtx;
         }
 
         public async Task<IActionResult> Index()
         {
             var list = await _queries.GetAll();
-
-            return View(list);
+            var logs = _eventContext.EventLogs.OrderBy(a => a.Time).Select(a => a.Time).ToList();
+            var model = new IndexModel {Items = list, Logs = logs};
+            return View(model);
         }
 
         public IActionResult UpdateCount(UpdateCountModel req)
@@ -43,6 +46,13 @@ namespace EventSourcingCQRS.Controllers
             var item = _queries.GetById(req.Id);
             var cmd = new UpdateCountCommand(item, req.Value > 0 ? 1 : -1);
             _cmdHandler.UpdateCount(cmd);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Rollback(RollbackModel req)
+        {
+            _cmdHandler.Rollback(new RollbackCommand {Time = req.Time});
 
             return RedirectToAction("Index");
         }

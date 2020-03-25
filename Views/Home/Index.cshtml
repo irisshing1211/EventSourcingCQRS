@@ -1,11 +1,14 @@
-﻿@model List<EventSourcingCQRS.Entities.NoSql.CountItem>
+﻿@model IndexModel
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<style>
+    .row{
+    padding: 5px;
+    }
+</style>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <div class="container">
         <div class="row text-center font-weight-bold">
             <div class="col-2">Item Name</div>
@@ -13,7 +16,7 @@
             <div class="col-2"></div>
         </div>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Items)
         {
             <div class="row">
                 <div class="col-2">@item.ItemName</div>
@@ -21,10 +24,10 @@
                 <div class="col-3">
                     <form method="post" asp-controller="Home" asp-action="UpdateCount">
                         <input type="hidden" name="Id" value="@item.Id"/>
-                        <button class="btn btnAdd btn-success" type="submit" value="@(item.Count + 1)" name="Value">
+                        <button class="btn btnAdd btn-success" type="submit" value="1" name="Value">
                             + 1
                         </button>
-                        <button class="btn btnReduce btn-info" type="submit" value="@(item.Count - 1)" name="Value">
+                        <button class="btn btnReduce btn-info" type="submit" value="-1" name="Value">
                             - 1
                         </button>
                     </form>
@@ -32,6 +35,46 @@
                 </div>
             </div>
         }
-    </div>
+        </div>
+        <hr/>
+        <h3>Rollback</h3>
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model.Logs)
+                {
+                  
+                    <div class="col-6">  @item.Name
+                        <div class="row text-center font-weight-bold">
+                            <div class="col-3">Log time</div>
+                            <div class="col-2">Action</div>
+                            <div class="col-3">Rollback item to</div>
+                            <div class="col-3">Rollback all to</div>
+                        </div>
+                        @foreach (var log in item.Logs)
+                        {
+                            <div class="row">
+                                <div class="col-3">@log.Time.ToString("yyyy/MM/dd HH:mm:ss")</div>
+                                <div class="col-2">@log.Action.ToString()</div>
+                                <div class="col-3">
+                                    <form method="post" asp-controller="Home" asp-action="RollbackSpecific">
+                                        <input type="hidden" name="Id" value="@item.Id"/>
+                                        <button class="btn btnRollback btn-success" type="submit" value="@log.Time" name="Time">
+                                            here
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-3">
+                                    <form method="post" asp-controller="Home" asp-action="Rollback">
+                                        <button class="btn btnRollback btn-success" type="submit" value="@log.Time" name="Time">
+                                            here
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    
 </div>
-<script></script>

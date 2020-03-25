@@ -1,6 +1,9 @@
-﻿using EventSourcingCQRS.Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using EventSourcingCQRS.Entities;
 using EventSourcingCQRS.Entities.Relational;
 using EventSourcingCQRS.Events;
+using EventSourcingCQRS.Query;
 
 namespace EventSourcingCQRS.Commands
 {
@@ -15,23 +18,62 @@ namespace EventSourcingCQRS.Commands
             _queryCtx = queryCtx;
         }
 
-        public void AddCount(AddCountCommand cmd)
+        public void UpdateCount(UpdateCountCommand cmd)
         {
             var log = cmd.LogObject;
-            AddLog(log);
-        }
-
-        public void ReduceCount(ReduceCountCommand cmd)
-        {
-            var log = cmd.LogObject;
-            AddLog(log);
-        }
-
-        private void AddLog(EventLog log)
-        {
             _eventSourceCtx.EventLogs.Add(log);
             _eventSourceCtx.SaveChanges();
             new UpdateCountEvent(_queryCtx).Push(log);
+            SnapShot(log);
+        }
+
+        public void Rollback(RollbackCommand cmd)
+        {
+            var logs = _eventSourceCtx.EventLogs.Where(a => a.Time >= cmd.Time && a.Action != LogAction.Snapshot)
+                                      .OrderByDescending(a => a.Time)
+                                      .ToList();
+
+            Rollback(logs);
+        }
+
+        public void Rollback(RollbackSpecificCommand cmd)
+        {
+            var logs = _eventSourceCtx
+                       .EventLogs.Where(a => a.ItemId == cmd.Id && a.Time >= cmd.Time && a.Action != LogAction.Snapshot)
+                       .OrderByDescending(a => a.Time)
+                       .ToList();
+
+            Rollback(logs);
+        }
+
+        private void Rollback(List<EventLog> logs)
+        {
+            new RollbackEvent(_queryCtx).Push(logs);
+            _eventSourceCtx.EventLogs.RemoveRange(logs);
+            _eventSourceCtx.SaveChanges();
+        }
+
+        private void SnapShot(EventLog log)
+        {
+            var logCnt = _eventSourceCtx.EventLogs.Count(a => a.ItemId == log.ItemId && a.Action != LogAction.Snapshot);
+
+            // add snapshot for every 10 events
+            if (logCnt % 10 == 0)
+            {
+                var query = new ItemQueryService(_queryCtx);
+                var item = query.GetById(log.ItemId);
+
+                var prevSnapshot = _eventSourceCtx
+                                   .EventLogs.Where(a => a.ItemId == log.ItemId &&
+                                                         (a.Action == LogAction.Snapshot ||
+                                                          a.Action == LogAction.Insert))
+                                   .OrderByDescending(a => a.Time)
+                                   .FirstOrDefault();
+
+                var snapshot = new EventLog(item, prevSnapshot);
+                _eventSourceCtx.EventLogs.Add(snapshot);
+                _eventSourceCtx.SaveChanges();
+            }
         }
     }
 }

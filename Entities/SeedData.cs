@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EventSourcingCQRS.Entities.NoSql;
 using EventSourcingCQRS.Entities.Relational;
 using EventSourcingCQRS.Models;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Newtonsoft.Json;
@@ -66,28 +67,44 @@ namespace EventSourcingCQRS.Entities
             {
                 client.DropDatabase(settings.DatabaseName);
                 var queryDb = new QueryContext(settings);
-                var eventList = eventSourceContext.EventLogs.AsQueryable().OrderBy(a => a.Time).ToList();
 
-                foreach (var log in eventList)
+                try
                 {
-                    var item = LogParser.ConvertStringToObject<CountItem>(log.NewValue);
+                    // get latest snapshot / add / delete event for each item
+                    var itemList = eventSourceContext
+                                   .EventLogs.Where(a => a.Action == LogAction.Insert ||
+                                                         a.Action == LogAction.Snapshot ||
+                                                         a.Action == LogAction.Delete).ToList()
+                                   .GroupBy(a => a.ItemId)
+                                   .ToList();
 
-                    switch (log.Action)
+                    var snapshotList = itemList
+                                       .Select(g => new {Log = g.OrderByDescending(a => a.Time).FirstOrDefault()})
+                                       .ToList();
+
+                    // filter deleted item
+                    var itemGrpList = snapshotList.Where(a => a.Log.Action != LogAction.Delete)
+                                                  .Select(a => a.Log)
+                                                  .ToList();
+
+                    foreach (var snapshot in itemGrpList)
                     {
-                        case LogAction.Insert:
-                            queryDb.CountItems.InsertOne(item);
+                        // get all event after snapshot / add
+                        var eventList = eventSourceContext
+                                        .EventLogs.Where(a => a.ItemId == snapshot.ItemId && a.Time > snapshot.Time)
+                                        .OrderBy(a => a.Time)
+                                        .ToList();
 
-                            break;
-                        case LogAction.Update:
-                            queryDb.CountItems.ReplaceOne(a => a.Id == log.ItemId, item);
+                        // parse snapshot item
+                        var item = LogParser.ConvertStringToObject<CountItem>(snapshot.NewValue);
 
-                            break;
-                        case LogAction.Delete:
-                            queryDb.CountItems.DeleteOne(a => a.Id == log.ItemId);
+                        // update item by event
+                        foreach (var log in eventList) { item = LogParser.UpdateObjectByData(item, log.NewValue); }
 
-                            break;
+                        queryDb.CountItems.InsertOne(item);
                     }
                 }
+                catch (Exception ex) {}
             }
         }
     }

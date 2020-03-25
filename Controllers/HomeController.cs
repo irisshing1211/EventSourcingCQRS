@@ -36,8 +36,25 @@ namespace EventSourcingCQRS.Controllers
         public async Task<IActionResult> Index()
         {
             var list = await _queries.GetAll();
-            var logs = _eventContext.EventLogs.OrderBy(a => a.Time).Select(a => a.Time).ToList();
+            var events = _eventContext.EventLogs.ToList().GroupBy(a => a.ItemId).ToList();
+
+            var logs = events.Select(g => new IndexLogItemsModel
+                             {
+                                 Id = g.Key,
+                                 Logs = g.Select(a => new IndexLogsModel {Time = a.Time, Action = a.Action})
+                                         .OrderBy(a => a.Time)
+                                         .ToList()
+                             })
+                             .ToList();
+
+            logs.ForEach(a =>
+            {
+                var item = list.FirstOrDefault(i => i.Id == a.Id);
+                a.Name = item == null ? "" : item.ItemName;
+            });
+
             var model = new IndexModel {Items = list, Logs = logs};
+
             return View(model);
         }
 
@@ -53,6 +70,13 @@ namespace EventSourcingCQRS.Controllers
         public IActionResult Rollback(RollbackModel req)
         {
             _cmdHandler.Rollback(new RollbackCommand {Time = req.Time});
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult RollbackSpecific(RollbackSpecificCommand req)
+        {
+            _cmdHandler.Rollback(req);
 
             return RedirectToAction("Index");
         }

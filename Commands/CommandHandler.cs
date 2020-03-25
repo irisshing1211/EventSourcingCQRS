@@ -2,6 +2,7 @@
 using EventSourcingCQRS.Entities;
 using EventSourcingCQRS.Entities.Relational;
 using EventSourcingCQRS.Events;
+using EventSourcingCQRS.Query;
 
 namespace EventSourcingCQRS.Commands
 {
@@ -22,6 +23,7 @@ namespace EventSourcingCQRS.Commands
             _eventSourceCtx.EventLogs.Add(log);
             _eventSourceCtx.SaveChanges();
             new UpdateCountEvent(_queryCtx).Push(log);
+            SnapShot(log);
         }
 
         public void Rollback(RollbackCommand cmd)
@@ -30,6 +32,27 @@ namespace EventSourcingCQRS.Commands
             new RollbackEvent(_queryCtx).Push(logs);
             _eventSourceCtx.EventLogs.RemoveRange(logs);
             _eventSourceCtx.SaveChanges();
+        }
+
+        private void SnapShot(EventLog log)
+        {
+            var logCnt = _eventSourceCtx.EventLogs.Count(a => a.ItemId == log.ItemId && a.Action != LogAction.Snapshot);
+
+            // add snapshot for every 10 events
+            if (logCnt % 10 == 0)
+            {
+                var query = new ItemQueryService(_queryCtx);
+                var item = query.GetById(log.ItemId);
+
+                var prevSnapshot = _eventSourceCtx
+                                   .EventLogs.Where(a => a.ItemId == log.ItemId && (a.Action == LogAction.Snapshot|| a.Action==LogAction.Insert))
+                                   .OrderByDescending(a => a.Time)
+                                   .FirstOrDefault();
+
+                var snapshot = new EventLog(item, prevSnapshot);
+                _eventSourceCtx.EventLogs.Add(snapshot);
+                _eventSourceCtx.SaveChanges();
+            }
         }
     }
 }

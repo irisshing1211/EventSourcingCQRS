@@ -25,10 +25,10 @@
                 <div class="col-3">
                     <form method="post" asp-controller="Home" asp-action="UpdateCount">
                         <input type="hidden" name="Id" value="@item.Id"/>
-                        <button class="btn btnAdd btn-success" type="submit" value="@(item.Count + 1)" name="Value">
+                        <button class="btn btnAdd btn-success" type="submit" value="1" name="Value">
                             + 1
                         </button>
-                        <button class="btn btnReduce btn-info" type="submit" value="@(item.Count - 1)" name="Value">
+                        <button class="btn btnReduce btn-info" type="submit" value="-1" name="Value">
                             - 1
                         </button>
                     </form>

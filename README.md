@@ -33,6 +33,16 @@ I follow these website to work on this project:
 4. use EF to create the event store db
 5. add seeder to add 2 add item event for testing if event store is empty.
 6. config mongodb
+
+Connection String are all in appsettings.json
+```json
+ "DbSettings": {
+    "CollectionName": "QueryCollection",
+    "NoSqlConnString": "your mongo db connection string",
+    "DatabaseName": "QueryDb",
+    "RelationalConnString": "your sql connection string"
+  },
+```
 ### Event Parser
 And now, we need write a event parser to convert event data to object or convert object to event data.
 

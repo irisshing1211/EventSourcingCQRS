@@ -86,6 +86,14 @@ Now, we have complete Command, Query and Event part. Let's link up them with con
 9. then call **UpdateCount** in the command handler with passing the command
 
 ### Rollback
-
+To rollback a object to specific time, we will need a rollback event and command
+1. create rollback command with contain item id and target time
+2. create rollback event with takes list of event log and apply old value for each event
+3. in command handler, add function to handler rollback command
+4. go to home conntroller, add rollback action
+5. in rollbak action, call rollback in command handler
 ### Snapshot
-### object versioning
+An object snapshot can take by number of events so that reduce the process time
+1. in command handler, create snapshot function with passing event log object
+2. in the function, check if the item in the log have the multiple number of 10 events, if yes then insert a snapshot record in event store.
+3. in update count function, call the snapshot function.

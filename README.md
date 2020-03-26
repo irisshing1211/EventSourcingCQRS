@@ -77,7 +77,7 @@ We have inserted event and updated object, it's time to query them to check the 
 Now, we have complete Command, Query and Event part. Let's link up them with controller and view
 1. in the controller, remember to implement `IQueryService<CountItem>` in the constructor and assign to a private variable
 2.  then add a private variable `CommandHandler _cmdHandler` and new it in the constructor
-3. to get the 
+3. to get the data from read store, call `_queries.GetAll()` in the index action
 4. add a table in the **Index.cshtml** to show the item list.
 5. Then add **+1** and **-1** button for each of the item 
 6. add **UpdateCount** action which is post and will take **item id** and **value** from the view, which will trigger when **+1** or **-1** button click

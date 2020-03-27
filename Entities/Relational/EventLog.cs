@@ -13,7 +13,6 @@ namespace EventSourcingCQRS.Entities.Relational
         public EventLog(Guid id, string oldValue, string newValue, LogAction action)
         {
             ItemId = id;
-            OldValue = oldValue;
             NewValue = newValue;
             Action = action;
             Time = DateTime.Now;
@@ -23,12 +22,10 @@ namespace EventSourcingCQRS.Entities.Relational
         /// for snapshot
         /// </summary>
         /// <param name="item">current item state</param>
-        /// <param name="prevSnapshot">previous snapshot</param>
-        public EventLog(CountItem item, EventLog prevSnapshot)
+        public EventLog(CountItem item)
         {
             ItemId = item.Id;
             NewValue = LogParser.ConvertToHistory(item);
-            OldValue = prevSnapshot.NewValue;
             Action = LogAction.Snapshot;
             Time = DateTime.Now;
         }
@@ -39,7 +36,6 @@ namespace EventSourcingCQRS.Entities.Relational
 
         public DateTime Time { get; set; }
         public Guid ItemId { get; set; }
-        public string OldValue { get; set; }
         public string NewValue { get; set; }
         public LogAction Action { get; set; }
     }

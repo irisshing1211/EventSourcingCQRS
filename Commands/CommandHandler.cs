@@ -56,7 +56,7 @@ namespace EventSourcingCQRS.Commands
 
         private void Rollback(List<EventLog> logs)
         {
-            new RollbackEvent(_queryCtx).Push(logs);
+            new RollbackEvent(_queryCtx, _eventSourceCtx).Push(logs);
             _eventSourceCtx.EventLogs.RemoveRange(logs);
             _eventSourceCtx.SaveChanges();
         }
@@ -78,7 +78,7 @@ namespace EventSourcingCQRS.Commands
                                    .OrderByDescending(a => a.Time)
                                    .FirstOrDefault();
 
-                var snapshot = new EventLog(item, prevSnapshot);
+                var snapshot = new EventLog(item);
                 _eventSourceCtx.EventLogs.Add(snapshot);
                 _eventSourceCtx.SaveChanges();
             }

@@ -33,6 +33,16 @@ I follow these website to work on this project:
 4. use EF to create the event store db
 5. add seeder to add 2 add item event for testing if event store is empty.
 6. config mongodb
+
+Connection String are all in appsettings.json
+```json
+ "DbSettings": {
+    "CollectionName": "QueryCollection",
+    "NoSqlConnString": "your mongo db connection string",
+    "DatabaseName": "QueryDb",
+    "RelationalConnString": "your sql connection string"
+  },
+```
 ### Event Parser
 And now, we need write a event parser to convert event data to object or convert object to event data.
 
@@ -77,7 +87,7 @@ We have inserted event and updated object, it's time to query them to check the 
 Now, we have complete Command, Query and Event part. Let's link up them with controller and view
 1. in the controller, remember to implement `IQueryService<CountItem>` in the constructor and assign to a private variable
 2.  then add a private variable `CommandHandler _cmdHandler` and new it in the constructor
-3. to get the 
+3. to get the data from read store, call `_queries.GetAll()` in the index action
 4. add a table in the **Index.cshtml** to show the item list.
 5. Then add **+1** and **-1** button for each of the item 
 6. add **UpdateCount** action which is post and will take **item id** and **value** from the view, which will trigger when **+1** or **-1** button click

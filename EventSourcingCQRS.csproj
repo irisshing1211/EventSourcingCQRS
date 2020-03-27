@@ -21,6 +21,61 @@
     <Folder Include="Migrations" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\server\SpecRun.Server.exe.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\server\TechTalk.SpecRun.Server.Model.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\server\TechTalk.SpecRun.Server.Service.exe.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\SpecFlow.Plus.Runner.Reporting.exe.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\SpecRun.exe.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\TechTalk.SpecRun.Framework.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\TechTalk.SpecRun.Framework.Executor.AnyCPU.clr40.exe.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\TechTalk.SpecRun.Framework.Executor.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\TechTalk.SpecRun.Framework.Executor.x86.clr40.exe.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\net45\TechTalk.SpecRun.VisualStudio.TestAdapter.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.0\TechTalk.SpecRun.Framework.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.0\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp2_0.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.0\TechTalk.SpecRun.Framework.Executor.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.0\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp2_0.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.0\TechTalk.SpecRun.VisualStudio.TestAdapter.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.1\TechTalk.SpecRun.Framework.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.1\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp2_1.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.1\TechTalk.SpecRun.Framework.Executor.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.1\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp2_1.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.1\TechTalk.SpecRun.VisualStudio.TestAdapter.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.2\TechTalk.SpecRun.Framework.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.2\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp2_2.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.2\TechTalk.SpecRun.Framework.Executor.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.2\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp2_2.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.2\TechTalk.SpecRun.VisualStudio.TestAdapter.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.0\TechTalk.SpecRun.Framework.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.0\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp3_0.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.0\TechTalk.SpecRun.Framework.Executor.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.0\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp3_0.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.0\TechTalk.SpecRun.VisualStudio.TestAdapter.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.1\TechTalk.SpecRun.Framework.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.1\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp3_1.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.1\TechTalk.SpecRun.Framework.Executor.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.1\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp3_1.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.1\TechTalk.SpecRun.VisualStudio.TestAdapter.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\TechTalk.SpecRun.VisualStudio.TestAdapter.dll.config" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\EventSourcingCQRS.Spec.deps.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\EventSourcingCQRS.Spec.runtimeconfig.dev.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\EventSourcingCQRS.Spec.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.0\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp2_0.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.0\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp2_0.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.1\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp2_1.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.1\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp2_1.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.2\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp2_2.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp2.2\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp2_2.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.0\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp3_0.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.0\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp3_0.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.1\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp3_1.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\bin\Debug\netcoreapp3.1\SpecFlowPlusRunner\netcoreapp3.1\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp3_1.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\obj\EventSourcingCQRS.Spec.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="EventSourcingCQRS.Spec\obj\project.packagespec.json" />
+  </ItemGroup>
+
 
 
 </Project>

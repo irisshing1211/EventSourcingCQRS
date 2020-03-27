@@ -27,6 +27,14 @@ namespace EventSourcingCQRS.Commands
             SnapShot(log);
         }
 
+        public void UpdateItem(UpdateItemCommand cmd)
+        {
+            var log = cmd.LogObject;
+            _eventSourceCtx.EventLogs.Add(log);
+            _eventSourceCtx.SaveChanges();
+            new UpdateItemEvent(_queryCtx).Push(cmd.NewValue);
+            SnapShot(log);
+        }
         public void Rollback(RollbackCommand cmd)
         {
             var logs = _eventSourceCtx.EventLogs.Where(a => a.Time >= cmd.Time && a.Action != LogAction.Snapshot)

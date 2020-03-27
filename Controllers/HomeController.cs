@@ -67,6 +67,13 @@ namespace EventSourcingCQRS.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult UpdateItem(UpdateItemModel req)
+        {
+            var item = _queries.GetById(req.Id);
+            var cmd = new UpdateItemCommand(item, req);
+            _cmdHandler.UpdateItem(cmd);
+            return RedirectToAction("Index");
+        }
         public IActionResult Rollback(RollbackModel req)
         {
             _cmdHandler.Rollback(new RollbackCommand {Time = req.Time});

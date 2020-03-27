@@ -53,8 +53,12 @@ namespace EventSourcingCQRS
                         prop.SetValue(old, field.Value, null);
 
                         break;
+                   
                     default:
-                        prop.SetValue(old, field.Value, null);
+                        if (Guid.TryParse(field.Value, out var guid))
+                            prop.SetValue(old, guid, null);
+                        else
+                            prop.SetValue(old, field.Value, null);
 
                         break;
                 }

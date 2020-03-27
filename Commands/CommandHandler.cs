@@ -37,7 +37,7 @@ namespace EventSourcingCQRS.Commands
         }
         public void Rollback(RollbackCommand cmd)
         {
-            var logs = _eventSourceCtx.EventLogs.Where(a => a.Time >= cmd.Time && a.Action != LogAction.Snapshot)
+            var logs = _eventSourceCtx.EventLogs.Where(a => a.Time > cmd.Time)
                                       .OrderByDescending(a => a.Time)
                                       .ToList();
 
@@ -47,7 +47,7 @@ namespace EventSourcingCQRS.Commands
         public void Rollback(RollbackSpecificCommand cmd)
         {
             var logs = _eventSourceCtx
-                       .EventLogs.Where(a => a.ItemId == cmd.Id && a.Time >= cmd.Time && a.Action != LogAction.Snapshot)
+                       .EventLogs.Where(a => a.ItemId == cmd.Id && a.Time > cmd.Time)
                        .OrderByDescending(a => a.Time)
                        .ToList();
 
@@ -57,6 +57,7 @@ namespace EventSourcingCQRS.Commands
         private void Rollback(List<EventLog> logs)
         {
             new RollbackEvent(_queryCtx, _eventSourceCtx).Push(logs);
+            logs.Remove(logs[logs.Count - 1]);
             _eventSourceCtx.EventLogs.RemoveRange(logs);
             _eventSourceCtx.SaveChanges();
         }
@@ -70,13 +71,6 @@ namespace EventSourcingCQRS.Commands
             {
                 var query = new ItemQueryService(_queryCtx);
                 var item = query.GetById(log.ItemId);
-
-                var prevSnapshot = _eventSourceCtx
-                                   .EventLogs.Where(a => a.ItemId == log.ItemId &&
-                                                         (a.Action == LogAction.Snapshot ||
-                                                          a.Action == LogAction.Insert))
-                                   .OrderByDescending(a => a.Time)
-                                   .FirstOrDefault();
 
                 var snapshot = new EventLog(item);
                 _eventSourceCtx.EventLogs.Add(snapshot);

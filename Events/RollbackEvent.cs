@@ -70,6 +70,8 @@ namespace EventSourcingCQRS.Events
 
                 foreach (var log in events) { current = LogParser.UpdateObjectByData(current, log.NewValue); }
 
+                _ctx.CountItems.ReplaceOne(a => a.Id == current.Id, current);
+
             }
         }
     }

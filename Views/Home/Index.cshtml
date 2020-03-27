@@ -6,6 +6,11 @@
     .row{
     padding: 5px;
     }
+    input[type=number]{
+    width: 50%;
+    margin: 0 auto;
+    }
+    
 </style>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
@@ -17,23 +22,23 @@
         </div>
 
         @foreach (var item in Model.Items)
-        {
-            <div class="row">
-                <div class="col-2">@item.ItemName</div>
-                <div class="col-2">@item.Count</div>
-                <div class="col-3">
-                    <form method="post" asp-controller="Home" asp-action="UpdateCount">
+        { 
+            <form method="post" asp-controller="Home" asp-action="UpdateItem">
+                <div class="row">
+                    <div class="col-2">
+                        <input type="text" class="form-control" name="Name" value="@item.ItemName"/>
+                    </div>
+                    <div class="col-2 ">
+                        <input type="number" name="Count" class="form-control text-center"  value="@item.Count"/>
+                    </div>
+                    <div class="col-2">
                         <input type="hidden" name="Id" value="@item.Id"/>
                         <button class="btn btnAdd btn-success" type="submit" value="1" name="Value">
-                            + 1
+                            Update
                         </button>
-                        <button class="btn btnReduce btn-info" type="submit" value="-1" name="Value">
-                            - 1
-                        </button>
-                    </form>
-
-                </div>
-            </div>
+                    </div>
+                </div> 
+            </form>
         }
         </div>
         <hr/>
